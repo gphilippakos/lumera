@@ -8,7 +8,7 @@ const gridImages = [
   { src: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=600&q=80&auto=format&fit=crop', alt: 'Aesthetician at work' },
   { src: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80&auto=format&fit=crop', alt: 'Luxury spa facial treatment' },
   { src: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80&auto=format&fit=crop', alt: 'Skincare treatment close-up' },
-  { src: 'https://images.unsplash.com/photo-1573461160327-f34bb8c44fef?w=600&q=80&auto=format&fit=crop', alt: 'Advanced skin treatment session' },
+  { src: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&q=80&auto=format&fit=crop', alt: 'Advanced skin treatment session' },
   { src: 'https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=600&q=80&auto=format&fit=crop', alt: 'Beautiful lash and brow results' },
 ]
 

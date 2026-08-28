@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { LogoLight } from './Logo'
 
 export function Hero() {
   return (
@@ -27,21 +26,16 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-20 text-center px-6 max-w-3xl mx-auto py-24 md:py-0">
 
-        {/* Logo */}
-        <div className="flex justify-center mb-6 md:mb-8">
-          <LogoLight className="w-44 sm:w-56 md:w-72" />
-        </div>
-
         {/* Tagline */}
-        <p className="font-sans text-xs tracking-widest uppercase mb-4 mt-1"
-          style={{ color: 'rgba(255,255,255,0.92)', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}
+        <p className="font-sans text-xs tracking-widest uppercase mb-4"
+          style={{ color: 'rgba(255,255,255,1)', textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}
         >
           Where science meets self-care.
         </p>
 
         {/* Sub-tagline */}
         <p className="font-display text-lg sm:text-xl md:text-2xl font-light leading-relaxed mb-8 md:mb-10 max-w-xl mx-auto"
-          style={{ color: 'rgba(255,255,255,0.95)', textShadow: '0 1px 6px rgba(0,0,0,0.35)' }}
+          style={{ color: 'rgba(255,255,255,1)', textShadow: '0 1px 8px rgba(0,0,0,0.55)' }}
         >
           Personalized skincare treatments in a calm, results-driven studio environment.
         </p>

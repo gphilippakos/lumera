@@ -21,7 +21,7 @@ const items: BAItem[] = [
   },
   {
     before:
-      'https://images.unsplash.com/photo-1573461160327-f34bb8c44fef?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=85&auto=format&fit=crop',
     after:
       'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=85&auto=format&fit=crop',
     treatment: 'Microneedling Series',
