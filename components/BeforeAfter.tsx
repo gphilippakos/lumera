@@ -87,7 +87,7 @@ function Slider({ item }: { item: BAItem }) {
   }, [updatePosition])
 
   return (
-    <div className="flex flex-col gap-4 fade-up">
+    <div className="flex flex-col gap-4 service-card-enter">
       <div
         ref={containerRef}
         className="ba-slider relative w-full aspect-[4/3] cursor-col-resize select-none"
@@ -186,7 +186,7 @@ export function BeforeAfter() {
         {/* Sliders grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((item) => (
-            <Slider key={item.treatment} item={item} />
+            <Slider key={`${activeFilter}-${item.treatment}`} item={item} />
           ))}
         </div>
 

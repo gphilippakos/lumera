@@ -48,8 +48,8 @@ export function Testimonials() {
           {reviews.map((r, i) => (
             <div
               key={r.name}
-              className="bg-blush border border-gold-light p-6 md:p-8 flex flex-col gap-3 md:gap-4 fade-up"
-              style={{ transitionDelay: `${i * 80}ms` }}
+              className="bg-blush border border-gold-light p-6 md:p-8 flex flex-col gap-3 md:gap-4 service-card-enter"
+              style={{ animationDelay: `${i * 80}ms` }}
             >
               <Stars count={r.rating} />
               <p className="font-display text-lg md:text-xl font-light text-charcoal leading-relaxed italic flex-1">
