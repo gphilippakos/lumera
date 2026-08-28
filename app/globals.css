@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --ivory:      #F5F0EB;
-  --gold:       #C9A96E;
-  --gold-light: #E8D5B0;
-  --blush:      #E8DDD4;
-  --charcoal:   #2C2C2C;
-  --warm-grey:  #8C7E72;
-  --white:      #FFFFFF;
+  --ivory:        #F5F0EB;
+  --gold:         #C9A96E;
+  --gold-light:   #E8D5B0;
+  --blush:        #E8DDD4;
+  --charcoal:     #2C2C2C;
+  --warm-grey:    #8C7E72;
+  --white:        #FFFFFF;
 }
 
 * {
@@ -20,6 +20,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
 }
 
 body {
@@ -28,17 +30,37 @@ body {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Improve tap target responsiveness on iOS */
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* ── Fade-in-up scroll animation ── */
+/* ── Prevent iOS input zoom (must be 16px+ font-size) ── */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
+/* ── Fade-in-up scroll animation ──
+   Use will-change to promote to GPU layer; improves scroll perf on mobile */
 .fade-up {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
 }
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+/* Prevent flash of invisible content if JS loads late */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── Before/After Slider ── */
@@ -47,6 +69,7 @@ body {
   overflow: hidden;
   cursor: col-resize;
   user-select: none;
+  /* Allow vertical page scroll on touch while horizontal drags the slider */
   touch-action: pan-y;
 }
 .ba-slider .ba-after {
@@ -64,21 +87,20 @@ body {
   z-index: 10;
   transform: translateX(-50%);
 }
-.ba-slider .ba-handle::before,
-.ba-slider .ba-handle::after {
+/* Bigger touch grab circle on mobile */
+.ba-slider .ba-handle::before {
   content: '';
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 36px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* 44px minimum touch target (Apple HIG) */
+  width: 44px;
+  height: 44px;
   background: var(--gold);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
-.ba-slider .ba-handle::before { top: calc(50% - 18px); }
 .ba-slider .ba-handle-icon {
   position: absolute;
   top: 50%;
@@ -87,9 +109,10 @@ body {
   z-index: 11;
   pointer-events: none;
   color: var(--ivory);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* ── Announcement bar ── */
@@ -97,23 +120,37 @@ body {
   background: var(--gold);
   color: var(--charcoal);
   text-align: center;
-  font-size: 0.8125rem;
   font-family: var(--font-dm-sans), sans-serif;
-  letter-spacing: 0.08em;
-  padding: 10px 48px;
+  /* Tighter on mobile — no letter-spacing overflow */
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 10px 40px;
   position: relative;
+  line-height: 1.5;
+}
+@media (min-width: 640px) {
+  .announcement-bar {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    padding: 10px 48px;
+  }
 }
 .announcement-bar .close-btn {
   position: absolute;
-  right: 16px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
+  /* 44px touch target */
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
   color: var(--charcoal);
-  line-height: 1;
   opacity: 0.7;
   transition: opacity 0.2s;
 }
@@ -125,22 +162,30 @@ body {
   outline-offset: 3px;
 }
 
-/* ── Service card enter animation (used for tab-switched cards) ── */
+/* ── Service card enter animation ── */
 @keyframes cardEnter {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .service-card-enter {
-  animation: cardEnter 0.4s ease both;
+  animation: cardEnter 0.38s ease both;
 }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--ivory); }
-::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
+/* ── Scrollbar (desktop only — doesn't affect mobile) ── */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--ivory); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
+}
+
+/* ── Minimum tap target for all buttons/links ── */
+button, a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+/* Override for inline text links that shouldn't be block */
+p a, li a, label {
+  min-height: unset;
+  display: inline;
+}
