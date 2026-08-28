@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ivory:      #F5F0EB;
+  --gold:       #C9A96E;
+  --gold-light: #E8D5B0;
+  --blush:      #E8DDD4;
+  --charcoal:   #2C2C2C;
+  --warm-grey:  #8C7E72;
+  --white:      #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Fade-in-up scroll animation ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Before/After Slider ── */
+.ba-slider {
+  position: relative;
+  overflow: hidden;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: pan-y;
+}
+.ba-slider .ba-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ba-slider .ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  cursor: col-resize;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+.ba-slider .ba-handle::before,
+.ba-slider .ba-handle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ba-slider .ba-handle::before { top: calc(50% - 18px); }
+.ba-slider .ba-handle-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  pointer-events: none;
+  color: var(--ivory);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ── Announcement bar ── */
+.announcement-bar {
+  background: var(--gold);
+  color: var(--charcoal);
+  text-align: center;
+  font-size: 0.8125rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  letter-spacing: 0.08em;
+  padding: 10px 48px;
+  position: relative;
+}
+.announcement-bar .close-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--charcoal);
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.announcement-bar .close-btn:hover { opacity: 1; }
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ivory); }
+::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
