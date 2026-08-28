@@ -8,7 +8,11 @@ export function AnnouncementBar() {
   if (!visible) return null
 
   return (
-    <div className="announcement-bar" role="banner">
+    <div
+      id="announcement-bar"
+      className="announcement-bar"
+      role="banner"
+    >
       <p className="font-sans text-xs tracking-widest uppercase">
         Now welcoming new clients —{' '}
         <a

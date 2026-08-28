@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Logo } from './Logo'
 
@@ -14,9 +14,29 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [navTop, setNavTop] = useState(0)
+  const headerRef = useRef<HTMLElement>(null)
+
+  // Measure announcement bar height and reposition navbar below it
+  useEffect(() => {
+    const measure = () => {
+      const bar = document.getElementById('announcement-bar')
+      setNavTop(bar ? bar.offsetHeight : 0)
+    }
+    measure()
+
+    // Re-measure on resize and when bar is dismissed
+    window.addEventListener('resize', measure)
+    const observer = new MutationObserver(measure)
+    observer.observe(document.body, { childList: true, subtree: true })
+    return () => {
+      window.removeEventListener('resize', measure)
+      observer.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -30,12 +50,13 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        ref={headerRef}
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-ivory/95 backdrop-blur-sm border-b border-gold-light shadow-sm'
             : 'bg-transparent'
         }`}
-        style={{ top: 'var(--announcement-height, 0px)' }}
+        style={{ top: `${navTop}px` }}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
@@ -83,21 +104,9 @@ export function Navbar() {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
             >
-              <span
-                className={`block w-6 h-px transition-all duration-300 ${
-                  scrolled ? 'bg-charcoal' : 'bg-ivory'
-                } ${menuOpen ? 'rotate-45 translate-y-2.5' : ''}`}
-              />
-              <span
-                className={`block w-6 h-px transition-all duration-300 ${
-                  scrolled ? 'bg-charcoal' : 'bg-ivory'
-                } ${menuOpen ? 'opacity-0' : ''}`}
-              />
-              <span
-                className={`block w-6 h-px transition-all duration-300 ${
-                  scrolled ? 'bg-charcoal' : 'bg-ivory'
-                } ${menuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}
-              />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-charcoal' : 'bg-ivory'} ${menuOpen ? 'rotate-45 translate-y-2.5' : ''}`} />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-charcoal' : 'bg-ivory'} ${menuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-charcoal' : 'bg-ivory'} ${menuOpen ? '-rotate-45 -translate-y-2.5' : ''}`} />
             </button>
           </div>
         </nav>

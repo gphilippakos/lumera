@@ -48,13 +48,17 @@ export function Services() {
           ))}
         </div>
 
-        {/* Service cards grid */}
+        {/* Service cards grid
+            NOTE: No fade-up on dynamically filtered cards — the IntersectionObserver
+            fires once on mount. Cards switched in via tab state render after the
+            observer has already run, so they'd stay invisible. Use a CSS enter
+            animation keyed to the category change instead. */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((service, i) => (
             <div
-              key={service.id}
-              className="bg-ivory border border-gold-light p-8 flex flex-col gap-4 fade-up hover:border-gold transition-colors"
-              style={{ transitionDelay: `${i * 60}ms` }}
+              key={`${activeCategory}-${service.id}`}
+              className="bg-ivory border border-gold-light p-8 flex flex-col gap-4 hover:border-gold transition-colors service-card-enter"
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               {/* Icon + category */}
               <div className="flex items-center justify-between">

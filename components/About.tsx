@@ -16,8 +16,8 @@ export function About() {
           {/* Image */}
           <div className="relative h-[480px] lg:h-[560px] overflow-hidden fade-up">
             <Image
-              src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=1200&q=80&auto=format&fit=crop"
-              alt="Serene treatment room at Luméra Skin Studio"
+              src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=1200&q=85&auto=format&fit=crop"
+              alt="Aesthetician performing a luxurious facial treatment at Luméra Skin Studio"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"
