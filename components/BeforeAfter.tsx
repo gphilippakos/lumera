@@ -29,9 +29,9 @@ const items: BAItem[] = [
   },
   {
     before:
-      'https://images.unsplash.com/photo-1515688594390-b649af70d282?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=85&auto=format&fit=crop',
     after:
-      'https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=800&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=800&q=85&auto=format&fit=crop',
     treatment: 'Lash Lift & Tint',
     category: 'brow-lash',
   },

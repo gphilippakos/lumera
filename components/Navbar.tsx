@@ -59,11 +59,9 @@ export function Navbar() {
         style={{ top: `${navTop}px` }}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-          {/* Logo — hidden at top of page, appears on scroll */}
-          <Link href="/" aria-label="Luméra Skin Studio — home"
-            className={`transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-          >
-            <Logo variant="dark" />
+          {/* Logo — always visible, light over hero, dark once scrolled */}
+          <Link href="/" aria-label="Luméra Skin Studio — home">
+            <Logo variant={scrolled ? 'dark' : 'light'} />
           </Link>
 
           {/* Desktop nav */}
